@@ -21,178 +21,145 @@
       100% {background-position: 0% 50%;}
     }
 
-    header {
-      padding: 40px 20px 10px;
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
+
     h1 {
       font-size: 3em;
       color: #F3B83B;
       animation: popIn 1s ease;
     }
+
     @keyframes popIn {
-      from { transform: scale(0); opacity: 0; }
+      from { transform: scale(0.8); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
 
-    #team-name {
-      margin-top: 10px;
-      font-size: 1.8em;
-      font-weight: bold;
-      color: #000;
-      background: #F3B83B;
-      padding: 12px 25px;
-      border-radius: 12px;
-      display: inline-block;
-    }
-
-    .pizza-intro, .pizza-question {
-      margin: 40px auto 20px;
-      max-width: 800px;
-      background: #ffffff10;
-      border: 1px solid #fff;
-      border-radius: 15px;
-      padding: 30px;
-    }
-
-    .pizza-intro h2, .pizza-question h2 {
-      color: #F3B83B;
-      font-size: 2em;
-      margin-bottom: 10px;
-    }
-    .pizza-intro p, .pizza-question p {
+    .intro {
       font-size: 1.2em;
-      margin-bottom: 10px;
+      margin: 20px auto 10px;
     }
 
-    .pizza-intro p span, .pizza-question p span {
-      font-weight: bold;
-      color: #F3B83B;
-    }
-
-    .layers-container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-    .layer-item {
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-    .layer-item:hover {
-      transform: scale(1.1);
-    }
-    .layer-detail {
-      display: block;
-      text-align: left;
-      margin: 20px auto;
-      background: #00000040;
-      padding: 20px;
-      border-radius: 12px;
-      max-width: 600px;
-    }
-    .layer-detail img {
-      display: block;
-      margin: 0 auto 10px;
-      width: 220px;
-    }
-
-    footer {
-      margin-top: 40px;
-      font-size: 0.9em;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .footer-created {
-      color: #F3B83B;
-    }
-    .footer-name {
-      color: white;
-    }
-    .footer-divider {
-      height: 30px;
-      width: 1px;
-      background-color: white;
-    }
-
-    .logo {
-      width: 100px;
-    }
-
-    #startScreen, #introScreen {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      padding: 50px;
-    }
-    #teamInput {
+    input[type="text"] {
       padding: 10px;
-      font-size: 1.5em;
-      width: 300px;
-      border: none;
+      font-size: 1em;
       border-radius: 8px;
+      border: none;
+      width: 250px;
       text-align: center;
     }
-    #startButton, .goToIntro, .goToMain, .goBackBtn {
+
+    .start-button {
       margin-top: 20px;
-      padding: 14px 28px;
-      font-size: 1.4em;
-      font-weight: bold;
+      padding: 12px 24px;
       background-color: #F3B83B;
+      color: black;
+      font-weight: bold;
+      font-size: 1em;
       border: none;
       border-radius: 10px;
-      color: #000;
       cursor: pointer;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-      transition: background-color 0.3s ease, transform 0.2s ease;
     }
-    #startButton:hover, .goToIntro:hover, .goToMain:hover, .goBackBtn:hover {
-      background-color: #e0a800;
-      transform: scale(1.05);
+
+    .credits {
+      margin-top: 40px;
+      font-size: 0.95em;
     }
-    #mainContent, #introScreen {
+
+    .credits span {
+      color: #F3B83B;
+      margin: 0 10px;
+    }
+
+    #tip-box {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 10px;
+      font-size: 0.95em;
+      max-width: 250px;
+      z-index: 1000;
+      cursor: pointer;
+    }
+
+    #tip-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #001a4d;
+      border: 4px solid #F3B83B;
+      color: white;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 500px;
+      z-index: 2000;
       display: none;
     }
 
-    textarea {
-      width: 80%;
-      height: 120px;
-      font-size: 1.1em;
-      border-radius: 10px;
-      padding: 10px;
+    .popup-buttons {
+      margin-top: 20px;
+    }
+
+    .popup-buttons button {
+      margin: 5px;
+      padding: 10px 15px;
+      background-color: #F3B83B;
+      border: none;
+      color: black;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .layer-detail p span {
+      color: #F3B83B;
+      font-weight: bold;
     }
 
     .note-text {
-      font-size: 0.8em;
       color: #F3B83B;
-      margin: 10px 0 0;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-  <div id="startScreen">
+  <div class="container">
     <h1>Let’s cook up your business!</h1>
-    <p>Enter your team name:</p>
-    <input type="text" id="teamInput" placeholder="Team Name">
-    <button id="startButton" onclick="goToIntro()">Start Cooking Your Business 🍕</button>
-    <footer>
-      <span class="footer-created">Created by</span>
-      <span class="footer-name">Khadija Basahel</span>
-      <div class="footer-divider"></div>
-      <img src="Logo colors-01.png" alt="Beyond Logo" class="logo">
-    </footer>
+    <p class="intro">Enter your team name:</p>
+    <input type="text" id="teamInput" placeholder="Team Name" />
+    <button class="start-button" onclick="goToIntro()">Start Cooking Your Business 🍕</button>
+
+    <div class="credits">
+      <span>Created by</span> Khadija Basahel <span>|</span>
+      <img src="beyond-logo.png" alt="Beyond Logo" style="height: 20px; vertical-align: middle;">
+    </div>
   </div>
 
-  <div id="introScreen">
+  <div id="tip-box" onclick="openTipPopup()">💡 Tip</div>
+  <div id="tip-popup">
+    <p id="popup-tip"></p>
+    <div class="popup-buttons">
+      <button onclick="nextTip()">Next</button>
+      <button onclick="closeTipPopup()">OK</button>
+    </div>
+  </div>
+
+  <audio autoplay loop>
+    <source src="sizzle-sound.mp3" type="audio/mpeg">
+  </audio>
+
+  <div id="introScreen" style="display: none; flex-direction: column; align-items: center; justify-content: center; padding: 50px;">
     <div class="pizza-intro">
       <h2>Build Your Business, One Layer at a Time</h2>
-      <div id="layerDisplay"></div>
+      <div id="layerDisplay" style="margin: 20px auto; max-width: 600px;"></div>
       <div class="layers-container">
         <img src="Crust.png" class="layer-item" onclick="showLayer('crust')" width="80">
         <img src="Sauce.png" class="layer-item" onclick="showLayer('sauce')" width="80">
@@ -200,94 +167,167 @@
         <img src="Toppings.png" class="layer-item" onclick="showLayer('toppings')" width="80">
         <img src="Crust Edge.png" class="layer-item" onclick="showLayer('edge')" width="80">
       </div>
-      <p class="note-text">Click on any pizza layer to explore what it represents in a startup.</p>
-      <button class="goToMain" onclick="goToMainContent()">Go to Activity</button>
+      <div style="margin-top: 30px;">
+        <p class="note-text">Click on any pizza layer to explore what it represents in a startup.</p>
+      </div>
+      <div style="margin-top: 20px;">
+        <button class="start-button" onclick="goToActivity()">Go to Activity</button>
+      </div>
     </div>
-    <footer>
-      <span class="footer-created">Created by</span>
-      <span class="footer-name">Khadija Basahel</span>
-      <div class="footer-divider"></div>
-      <img src="Logo colors-01.png" alt="Beyond Logo" class="logo">
-    </footer>
+    <div class="credits">
+      <span>Created by</span> Khadija Basahel <span>|</span>
+      <img src="beyond-logo.png" alt="Beyond Logo" style="height: 20px; vertical-align: middle;">
+    </div>
   </div>
 
-  <div id="mainContent">
-    <header>
-      <div id="team-name"></div>
-      <audio autoplay loop>
-        <source src="https://cdn.pixabay.com/audio/2023/03/13/audio_99b2cbfa74.mp3" type="audio/mp3">
-      </audio>
-    </header>
+  <div id="activityScreen" style="display: none; padding: 40px;">
+  <div class="pizza-question">
+    <img src="Crust.png" width="80">
+    <h2 style="color:#F3B83B">Crust (Mission)</h2>
+    <p>What is the core purpose of your business?</p>
+    <textarea style="width: 90%; height: 150px; font-size: 1.1em; border-radius: 12px; padding: 15px;"></textarea>
+    <div style="margin-top:10px">
+      <button class="start-button">Done</button>
+      <button class="start-button">Edit</button>
+    </div>
+  </div>
+  <div class="pizza-question">
+    <img src="Sauce.png" width="80">
+    <h2 style="color:#F3B83B">Sauce (Values)</h2>
+    <p>What values guide your decisions and behavior?</p>
+    <textarea style="width: 90%; height: 150px; font-size: 1.1em; border-radius: 12px; padding: 15px;"></textarea>
+    <div style="margin-top:10px">
+      <button class="start-button">Done</button>
+      <button class="start-button">Edit</button>
+    </div>
+  </div>
+  <div class="pizza-question">
+    <img src="Cheese.png" width="80">
+    <h2 style="color:#F3B83B">Cheese (Culture)</h2>
+    <p>What is the internal vibe and culture of your team?</p>
+    <textarea style="width: 90%; height: 150px; font-size: 1.1em; border-radius: 12px; padding: 15px;"></textarea>
+    <div style="margin-top:10px">
+      <button class="start-button">Done</button>
+      <button class="start-button">Edit</button>
+    </div>
+  </div>
+  <div class="pizza-question">
+    <img src="Toppings.png" width="80">
+    <h2 style="color:#F3B83B">Toppings (Products/Services)</h2>
+    <p>What unique offerings or services do you provide?</p>
+    <textarea style="width: 90%; height: 150px; font-size: 1.1em; border-radius: 12px; padding: 15px;"></textarea>
+    <div style="margin-top:10px">
+      <button class="start-button">Done</button>
+      <button class="start-button">Edit</button>
+    </div>
+  </div>
+  <div class="pizza-question">
+    <img src="Crust Edge.png" width="80">
+    <h2 style="color:#F3B83B">Crust Edge (Boundaries)</h2>
+    <p>What won't your business do or support?</p>
+    <textarea style="width: 90%; height: 150px; font-size: 1.1em; border-radius: 12px; padding: 15px;"></textarea>
+    <div style="margin-top:10px">
+      <button class="start-button">Done</button>
+      <button class="start-button">Edit</button>
+    </div>
+  </div>
 
-    <div class="pizza-question">
-      <img src="Crust.png" alt="Crust Image" width="80">
-      <h2> Crust (Mission)</h2>
-      <p>What is the core purpose of your business?</p>
-      <textarea></textarea>
+      <span>Created by</span> Khadija Basahel <span>|</span>
+      <img src="beyond-logo.png" alt="Beyond Logo" style="height: 20px; vertical-align: middle;">
     </div>
-    <div class="pizza-question">
-      <img src="Sauce.png" alt="Sauce Image" width="80">
-      <h2> Sauce (Values)</h2>
-      <p>What values guide your decisions and behavior?</p>
-      <textarea></textarea>
-    </div>
-    <div class="pizza-question">
-      <img src="Cheese.png" alt="Cheese Image" width="80">
-      <h2> Cheese (Culture)</h2>
-      <p>What is the internal vibe and culture of your team?</p>
-      <textarea></textarea>
-    </div>
-    <div class="pizza-question">
-      <img src="Toppings.png" alt="Toppings Image" width="80">
-      <h2> Toppings (Products/Services)</h2>
-      <p>What unique offerings or services do you provide?</p>
-      <textarea></textarea>
-    </div>
-    <div class="pizza-question">
-      <img src="Crust Edge.png" alt="Edge Image" width="80">
-      <h2> Crust Edge (Boundaries)</h2>
-      <p>What won't your business do or support?</p>
-      <textarea></textarea>
-    </div>
-
-    <button class="goBackBtn" onclick="goToIntro()">⬅ Go Back</button>
-
-    <footer>
-      <span class="footer-created">Created by</span>
-      <span class="footer-name">Khadija Basahel</span>
-      <div class="footer-divider"></div>
-      <img src="Logo colors-01.png" alt="Beyond Logo" class="logo">
-    </footer>
   </div>
 
   <script>
+    const tips = [
+      "Start small, think big.",
+      "Solve a real problem, not a convenient one.",
+      "Feedback is gold — listen closely.",
+      "Launch fast, improve faster.",
+      "Know your ‘why’.",
+      "Don’t build alone — build with users.",
+      "Simplicity wins.",
+      "Hustle beats talent when talent doesn’t hustle.",
+      "Fall in love with the problem, not the solution.",
+      "A great team beats a great idea.",
+      "You won’t get it right the first time — iterate.",
+      "Clarity is more valuable than cleverness.",
+      "If everyone’s your customer, no one is.",
+      "Be consistent, not perfect.",
+      "Focus on value, not features.",
+      "Execution > Ideas.",
+      "Validate before you build.",
+      "Your first version is just learning.",
+      "Track your metrics — data matters.",
+      "Talk to your users weekly.",
+      "Build what people *need*, not what you *want*.",
+      "Progress beats perfection.",
+      "Vision without action is a daydream.",
+      "Startups don’t fail from lack of code — they fail from lack of customers.",
+      "Make it work before you make it pretty.",
+      "Your pitch should fit on a napkin.",
+      "Be stubborn on vision, flexible on details.",
+      "Timing is everything — don’t rush or wait too long.",
+      "Culture scales — build it intentionally.",
+      "Celebrate small wins. Always."
+    ];
+
+    let tipIndex = Math.floor(Math.random() * tips.length);
+
+    function openTipPopup() {
+      document.getElementById("popup-tip").innerText = tips[tipIndex];
+      document.getElementById("tip-popup").style.display = 'block';
+    }
+
+    function nextTip() {
+      tipIndex = (tipIndex + 1) % tips.length;
+      document.getElementById("popup-tip").innerText = tips[tipIndex];
+    }
+
+    function closeTipPopup() {
+      document.getElementById("tip-popup").style.display = 'none';
+    }
+
     function goToIntro() {
-      document.getElementById('startScreen').style.display = 'none';
-      document.getElementById('introScreen').style.display = 'flex';
-      document.getElementById('mainContent').style.display = 'none';
+      const intro = document.getElementById("introScreen");
+      if (intro) {
+        document.querySelector(".container").style.display = "none";
+        intro.style.display = "flex";
+      }
     }
-    function goToMainContent() {
-      const name = document.getElementById('teamInput').value;
-      document.getElementById('team-name').textContent = name ? name : '';
-      document.getElementById('introScreen').style.display = 'none';
-      document.getElementById('mainContent').style.display = 'block';
+
+    function goToActivity() {
+      document.getElementById("introScreen").style.display = "none";
+      document.getElementById("activityScreen").style.display = "block";
     }
+
     function showLayer(layerId) {
       const data = {
-        crust: ["Crust.png", "<span>Crust (Mission):</span> Just like the crust holds everything together, the mission defines the core purpose of the business why it exists."],
+        crust: ["Crust.png", "<span>Crust (Mission):</span> Just like the crust holds everything together, the mission defines the core purpose of the business — why it exists."],
         sauce: ["Sauce.png", "<span>Sauce (Values):</span> The sauce gives flavor. In a business, values shape how decisions are made and how the team behaves."],
         cheese: ["Cheese.png", "<span>Cheese (Culture):</span> Cheese connects everything like company culture, which bonds the team and defines the day-to-day experience."],
-        toppings: ["Toppings.png", "<span>Toppings (Products/Services):</span> These are the visible, unique offerings that customers interact with they differentiate your business."],
-        edge: ["Crust Edge.png", "<span>Crust Edge (Boundaries):</span> The edge defines limits what the business won’t do, who it doesn’t serve, or what’s off-brand."]
+        toppings: ["Toppings.png", "<span>Toppings (Products/Services):</span> These are the visible, unique offerings that customers interact with — they differentiate your business."],
+        edge: ["Crust Edge.png", "<span>Crust Edge (Boundaries):</span> The edge defines limits — what the business won’t do, who it doesn’t serve, or what’s off-brand."]
       };
       const [imgSrc, textHTML] = data[layerId];
-      document.getElementById('layerDisplay').innerHTML = `
-        <div class="layer-detail">
+      document.getElementById("layerDisplay").innerHTML = `
+        <div class="layer-detail" style="background-color: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 15px;">
           <img src="${imgSrc}" alt="Layer Image">
           <p>${textHTML}</p>
         </div>
       `;
     }
-  </script>
+  function toggleEdit(button, isEdit) {
+  const container = button.closest('.pizza-question');
+  const textarea = container.querySelector('textarea');
+  if (isEdit) {
+    textarea.removeAttribute('readonly');
+    textarea.focus();
+  } else {
+    textarea.setAttribute('readonly', true);
+    textarea.blur();
+  }
+}
+</script>
 </body>
 </html>
+
