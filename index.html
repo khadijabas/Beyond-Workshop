@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Pizza Canvas Builder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What If Challenge Groups</title>
   <style>
     body {
       margin: 0;
-      padding: 0;
+      padding: 40px 20px;
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(-45deg, #0202B0, #121212, #0202B0, #121212);
       background-size: 400% 400%;
@@ -21,312 +22,233 @@
       100% {background-position: 0% 50%;}
     }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-    }
-
     h1 {
-      font-size: 3em;
       color: #F3B83B;
-      animation: popIn 1s ease;
+      font-size: 2.8em;
+      margin-bottom: 40px;
+      animation: fadeIn 1.5s ease;
     }
 
-    @keyframes popIn {
-      from { transform: scale(0.8); opacity: 0; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .group-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+
+    .group-card {
+      background: #ffffff10;
+      border: 1px solid #fff;
+      border-radius: 20px;
+      padding: 25px;
+      width: 220px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      font-size: 1.2em;
+    }
+
+    .group-card:hover {
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      background-color: #F3B83B;
+      color: #000;
+    }
+
+    .group-points {
+      display: none;
+      text-align: left;
+      margin: 0 auto 40px;
+      max-width: 800px;
+      background: #ffffff10;
+      border-radius: 20px;
+      padding: 30px;
+      animation: slideUp 0.6s ease;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .group-points h2 {
+      color: #F3B83B;
+      font-size: 1.8em;
+      margin-bottom: 15px;
+    }
+
+    .group-points ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .group-points li {
+      margin: 12px 0;
+      padding-left: 10px;
+      position: relative;
+    }
+
+    .group-points li::before {
+      content: '-';
+      position: absolute;
+      left: -25px;
+      animation: bounceIn 0.3s ease;
+    }
+
+    @keyframes bounceIn {
+      from { transform: scale(0.3); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
 
-    .intro {
-      font-size: 1.2em;
-      margin: 20px auto 10px;
+    footer {
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
     }
 
-    input[type="text"] {
-      padding: 10px;
-      font-size: 1em;
-      border-radius: 8px;
-      border: none;
-      width: 250px;
-      text-align: center;
-    }
-
-    .start-button {
-      margin-top: 20px;
-      padding: 12px 24px;
-      background-color: #F3B83B;
-      color: black;
-      font-weight: bold;
-      font-size: 1em;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    .credits {
-      margin-top: 40px;
-      font-size: 0.95em;
-    }
-
-    .credits span {
+    .footer-created {
       color: #F3B83B;
-      margin: 0 10px;
     }
-
-    #tip-box {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      background: rgba(0, 0, 0, 0.6);
-      color: #fff;
-      padding: 10px 15px;
-      border-radius: 10px;
-      font-size: 0.95em;
-      max-width: 250px;
-      z-index: 1000;
-      cursor: pointer;
-    }
-
-    #tip-popup {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #001a4d;
-      border: 4px solid #F3B83B;
+    .footer-name {
       color: white;
-      padding: 30px;
-      border-radius: 20px;
-      max-width: 500px;
-      z-index: 2000;
-      display: none;
     }
-
-    .popup-buttons {
-      margin-top: 20px;
+    .footer-divider {
+      height: 30px;
+      width: 1px;
+      background-color: white;
     }
-
-    .popup-buttons button {
-      margin: 5px;
-      padding: 10px 15px;
-      background-color: #F3B83B;
-      border: none;
-      color: black;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .layer-detail p span {
-      color: #F3B83B;
-      font-weight: bold;
-    }
-
-    .note-text {
-      color: #F3B83B;
-      margin-top: 20px;
+    .logo {
+      width: 100px;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Let’s cook up your business!</h1>
-    <p class="intro">Enter your team name:</p>
-    <input type="text" id="teamInput" placeholder="Team Name" />
-    <button class="start-button" onclick="goToIntro()">Start Cooking Your Business 🍕</button>
-
-    <div class="credits">
-      <span>Created by</span> Khadija Basahel <span>|</span>
-      <img src="beyond-logo.png" alt="Beyond Logo" style="height: 20px; vertical-align: middle;">
-    </div>
+  <h1>Choose a Group to Unlock Your Creative Mission 🚀</h1>
+  <div class="group-container">
+  <div class="group-card" onclick="toggleGroup('group1')">Group 1</div>
+  <div class="group-card" onclick="toggleGroup('group2')">Group 2</div>
+  <div class="group-card" onclick="toggleGroup('group3')">Group 3</div>
+  <div class="group-card" onclick="toggleGroup('group4')">Group 4</div>
+  <div class="group-card" onclick="toggleGroup('group5')">Group 5</div>
+  <div class="group-card" onclick="toggleGroup('group6')">Group 6</div>
+</div>
+  
+  </div>
+  
+</div>
+  </div>
+  </div>
+    
   </div>
 
-  <div id="tip-box" onclick="openTipPopup()">💡 Tip</div>
-  <div id="tip-popup">
-    <p id="popup-tip"></p>
-    <div class="popup-buttons">
-      <button onclick="nextTip()">Next</button>
-      <button onclick="closeTipPopup()">OK</button>
-    </div>
+  <div id="group1" class="group-points">
+    <h2>Group 1</h2>
+    <ul>
+      <li>👥 What if your customers were only children?</li>
+      <li>🌍 What if your startup had to run in zero gravity?</li>
+      <li>💼 What if money didn’t exist, and people paid with time?</li>
+      <li>🎨 What if your startup could only speak in emojis?</li>
+      <li>💡 What if your product had to combine two unrelated products?</li>
+    </ul>
   </div>
 
-  <audio autoplay loop>
-    <source src="sizzle-sound.mp3" type="audio/mpeg">
-  </audio>
-
-  <div id="introScreen" style="display: none; flex-direction: column; align-items: center; justify-content: center; padding: 50px;">
-    <div class="pizza-intro">
-      <h2>Build Your Business, One Layer at a Time</h2>
-      <div id="layerDisplay" style="margin: 20px auto; max-width: 600px;"></div>
-      <div class="layers-container">
-        <img src="Crust.png" class="layer-item" onclick="showLayer('crust')" width="80">
-        <img src="Sauce.png" class="layer-item" onclick="showLayer('sauce')" width="80">
-        <img src="Cheese.png" class="layer-item" onclick="showLayer('cheese')" width="80">
-        <img src="Toppings.png" class="layer-item" onclick="showLayer('toppings')" width="80">
-        <img src="Crust Edge.png" class="layer-item" onclick="showLayer('edge')" width="80">
-      </div>
-      <div style="margin-top: 30px;">
-        <p class="note-text">Click on any pizza layer to explore what it represents in a startup.</p>
-      </div>
-      <div style="margin-top: 20px;">
-        <button class="start-button" onclick="goToActivity()">Go to Activity</button>
-      </div>
-    </div>
-    <div class="credits">
-      <span>Created by</span> Khadija Basahel <span>|</span>
-      <img src="beyond-logo.png" alt="Beyond Logo" style="height: 20px; vertical-align: middle;">
-    </div>
+  <div id="group2" class="group-points">
+    <h2>Group 2</h2>
+    <ul>
+      <li>👥 What if your customers changed every day?</li>
+      <li>🌍 What if your business had to operate underwater?</li>
+      <li>💼 What if you could only use one material?</li>
+      <li>🎨 What if your brand had to change colors daily?</li>
+      <li>💡 What if your startup operated 100 years in the future?</li>
+    </ul>
   </div>
 
-  <div id="activityScreen" style="display: none; padding: 40px;">
-  <div class="pizza-question">
-    <img src="Crust.png" width="80">
-    <h2 style="color:#F3B83B">Crust (Mission)</h2>
-    <p>What is the core purpose of your business?</p>
-    <textarea style="width: 90%; height: 150px; font-size: 1.1em; border-radius: 12px; padding: 15px;"></textarea>
-    <div style="margin-top:10px">
-      <button class="start-button">Done</button>
-      <button class="start-button">Edit</button>
-    </div>
-  </div>
-  <div class="pizza-question">
-    <img src="Sauce.png" width="80">
-    <h2 style="color:#F3B83B">Sauce (Values)</h2>
-    <p>What values guide your decisions and behavior?</p>
-    <textarea style="width: 90%; height: 150px; font-size: 1.1em; border-radius: 12px; padding: 15px;"></textarea>
-    <div style="margin-top:10px">
-      <button class="start-button">Done</button>
-      <button class="start-button">Edit</button>
-    </div>
-  </div>
-  <div class="pizza-question">
-    <img src="Cheese.png" width="80">
-    <h2 style="color:#F3B83B">Cheese (Culture)</h2>
-    <p>What is the internal vibe and culture of your team?</p>
-    <textarea style="width: 90%; height: 150px; font-size: 1.1em; border-radius: 12px; padding: 15px;"></textarea>
-    <div style="margin-top:10px">
-      <button class="start-button">Done</button>
-      <button class="start-button">Edit</button>
-    </div>
-  </div>
-  <div class="pizza-question">
-    <img src="Toppings.png" width="80">
-    <h2 style="color:#F3B83B">Toppings (Products/Services)</h2>
-    <p>What unique offerings or services do you provide?</p>
-    <textarea style="width: 90%; height: 150px; font-size: 1.1em; border-radius: 12px; padding: 15px;"></textarea>
-    <div style="margin-top:10px">
-      <button class="start-button">Done</button>
-      <button class="start-button">Edit</button>
-    </div>
-  </div>
-  <div class="pizza-question">
-    <img src="Crust Edge.png" width="80">
-    <h2 style="color:#F3B83B">Crust Edge (Boundaries)</h2>
-    <p>What won't your business do or support?</p>
-    <textarea style="width: 90%; height: 150px; font-size: 1.1em; border-radius: 12px; padding: 15px;"></textarea>
-    <div style="margin-top:10px">
-      <button class="start-button">Done</button>
-      <button class="start-button">Edit</button>
-    </div>
+  <div id="group3" class="group-points">
+    <h2>Group 3</h2>
+    <ul>
+      <li>👥 What if your employees could only be robots?</li>
+      <li>🌍 What if your business could only operate at night?</li>
+      <li>💼 What if your product had to dissolve after 24 hours?</li>
+      <li>🎨 What if you could only use sound effects to sell?</li>
+      <li>💡 What if your brand was only experienced through smell?</li>
+    </ul>
   </div>
 
-      <span>Created by</span> Khadija Basahel <span>|</span>
-      <img src="beyond-logo.png" alt="Beyond Logo" style="height: 20px; vertical-align: middle;">
-    </div>
+  <div id="group4" class="group-points">
+    <h2>Group 4</h2>
+    <ul>
+      <li>👥 What if your customers were all animals?</li>
+      <li>🌍 What if your office was on a moving train?</li>
+      <li>💼 What if your service had to be delivered without the internet?</li>
+      <li>🎨 What if your company could never use written words?</li>
+      <li>💡 What if you had to build your startup using only recycled trash?</li>
+    </ul>
   </div>
+
+  <div id="group5" class="group-points">
+    <h2>Group 5</h2>
+    <ul>
+      <li>👥 What if you had only 10 customers — forever?</li>
+      <li>🌍 What if your startup had to exist 100 years in the future?</li>
+      <li>💼 What if your startup had to survive on zero budget?</li>
+      <li>🎨 What if your startup was powered by laughter?</li>
+      <li>💡 What if your company had to reinvent the way people sleep?</li>
+    </ul>
+  </div>
+
+  <div id="group6" class="group-points">
+    <h2>Group 6</h2>
+    <ul>
+      <li>👥 What if your startup had to make people smile in 30 seconds?</li>
+      <li>🌍 What if your business could only operate outdoors?</li>
+      <li>💼 What if your business had no access to electricity?</li>
+      <li>🎨 What if your company could only communicate using symbols?</li>
+      <li>💡 What if your startup had to combine a game and a school?</li>
+    </ul>
+  </div>
+
+  <footer>
+    <span class="footer-created">Created by</span>
+    <span class="footer-name">Khadija Basahel</span>
+    <div class="footer-divider"></div>
+    <img src="Logo colors-01.png" alt="Beyond Logo" class="logo">
+  </footer>
 
   <script>
-    const tips = [
-      "Start small, think big.",
-      "Solve a real problem, not a convenient one.",
-      "Feedback is gold — listen closely.",
-      "Launch fast, improve faster.",
-      "Know your ‘why’.",
-      "Don’t build alone — build with users.",
-      "Simplicity wins.",
-      "Hustle beats talent when talent doesn’t hustle.",
-      "Fall in love with the problem, not the solution.",
-      "A great team beats a great idea.",
-      "You won’t get it right the first time — iterate.",
-      "Clarity is more valuable than cleverness.",
-      "If everyone’s your customer, no one is.",
-      "Be consistent, not perfect.",
-      "Focus on value, not features.",
-      "Execution > Ideas.",
-      "Validate before you build.",
-      "Your first version is just learning.",
-      "Track your metrics — data matters.",
-      "Talk to your users weekly.",
-      "Build what people *need*, not what you *want*.",
-      "Progress beats perfection.",
-      "Vision without action is a daydream.",
-      "Startups don’t fail from lack of code — they fail from lack of customers.",
-      "Make it work before you make it pretty.",
-      "Your pitch should fit on a napkin.",
-      "Be stubborn on vision, flexible on details.",
-      "Timing is everything — don’t rush or wait too long.",
-      "Culture scales — build it intentionally.",
-      "Celebrate small wins. Always."
-    ];
+  function toggleGroup(groupId) {
+    const allGroups = document.querySelectorAll('.group-points');
+    const groupContainer = document.querySelector('.group-container');
+    allGroups.forEach(g => g.style.display = 'none');
+    groupContainer.style.display = 'none';
 
-    let tipIndex = Math.floor(Math.random() * tips.length);
-
-    function openTipPopup() {
-      document.getElementById("popup-tip").innerText = tips[tipIndex];
-      document.getElementById("tip-popup").style.display = 'block';
+    const selected = document.getElementById(groupId);
+    if (selected) {
+      selected.style.display = 'block';
+      selected.innerHTML += `<div style='text-align:center; margin-top: 30px;'>
+        <button onclick="goBack()" style='padding: 12px 24px; font-size: 1em; background-color: #F3B83B; color: black; border: none; border-radius: 8px; cursor: pointer;'>⬅ Back to Groups</button>
+      </div>`;
+      selected.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
-
-    function nextTip() {
-      tipIndex = (tipIndex + 1) % tips.length;
-      document.getElementById("popup-tip").innerText = tips[tipIndex];
-    }
-
-    function closeTipPopup() {
-      document.getElementById("tip-popup").style.display = 'none';
-    }
-
-    function goToIntro() {
-      const intro = document.getElementById("introScreen");
-      if (intro) {
-        document.querySelector(".container").style.display = "none";
-        intro.style.display = "flex";
-      }
-    }
-
-    function goToActivity() {
-      document.getElementById("introScreen").style.display = "none";
-      document.getElementById("activityScreen").style.display = "block";
-    }
-
-    function showLayer(layerId) {
-      const data = {
-        crust: ["Crust.png", "<span>Crust (Mission):</span> Just like the crust holds everything together, the mission defines the core purpose of the business — why it exists."],
-        sauce: ["Sauce.png", "<span>Sauce (Values):</span> The sauce gives flavor. In a business, values shape how decisions are made and how the team behaves."],
-        cheese: ["Cheese.png", "<span>Cheese (Culture):</span> Cheese connects everything like company culture, which bonds the team and defines the day-to-day experience."],
-        toppings: ["Toppings.png", "<span>Toppings (Products/Services):</span> These are the visible, unique offerings that customers interact with — they differentiate your business."],
-        edge: ["Crust Edge.png", "<span>Crust Edge (Boundaries):</span> The edge defines limits — what the business won’t do, who it doesn’t serve, or what’s off-brand."]
-      };
-      const [imgSrc, textHTML] = data[layerId];
-      document.getElementById("layerDisplay").innerHTML = `
-        <div class="layer-detail" style="background-color: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 15px;">
-          <img src="${imgSrc}" alt="Layer Image">
-          <p>${textHTML}</p>
-        </div>
-      `;
-    }
-  function toggleEdit(button, isEdit) {
-  const container = button.closest('.pizza-question');
-  const textarea = container.querySelector('textarea');
-  if (isEdit) {
-    textarea.removeAttribute('readonly');
-    textarea.focus();
-  } else {
-    textarea.setAttribute('readonly', true);
-    textarea.blur();
   }
-}
+
+  function goBack() {
+    const allGroups = document.querySelectorAll('.group-points');
+    const groupContainer = document.querySelector('.group-container');
+    allGroups.forEach(g => {
+      g.style.display = 'none';
+      const button = g.querySelector('button');
+      if (button) button.remove();
+    });
+    groupContainer.style.display = 'flex';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 </script>
 </body>
 </html>
